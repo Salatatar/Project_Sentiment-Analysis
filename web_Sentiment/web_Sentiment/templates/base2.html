@@ -1,0 +1,123 @@
+{% load static %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".navbar-custom .dmenu").hover(
+            function() {
+                $(this).find(".sm-menu").first().stop(true, true).slideDown(150);
+            },
+            function() {
+                $(this).find(".sm-menu").first().stop(true, true).slideUp(105);
+            }
+        );
+    });
+</script>
+<html lang="en">
+
+<head>
+    <title>คิดก่อนซื้อ : ผลิตภัณฑ์กีฬา</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,500i,700,800i" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main_new.css' %}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-custom">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-color" href="{% url 'requirement' %}">Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item dropdown dmenu">
+            <a
+              class="nav-link dropdown-toggle text-color"
+              href="#"
+              id="navbardrop"
+              data-toggle="dropdown"
+            >
+            Sentiment Process
+            </a>
+                    <div class="dropdown-menu sm-menu">
+                        <a class="dropdown-item" href="{% url 'requirement' %}">Requirement</a
+              >
+              <a class="dropdown-item" href="{% url 'retrieval' %}"
+                >Retrieval</a
+              >
+              <a class="dropdown-item" href="{% url 'extraction' %}"
+                >Extraction</a
+              >
+              <a class="dropdown-item" href="{% url 'analytic' %}" onclick="Warn()">Analytic</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-color" href="{% url 'financial' %}">Financial Process</a>
+                </li>
+                <li class="nav-item dropdown dmenu">
+                    <a class="nav-link dropdown-toggle text-color" href="#" id="navbardrop" data-toggle="dropdown">ML Algorithms
+            </a>
+                    <div class="dropdown-menu sm-menu">
+                        <a class="dropdown-item" href="{% url 'knn' %}">K Nearest Neighbor</a
+              >
+              <a class="dropdown-item" href="{% url 'naiveBayes' %}"
+                >Naïve Bayes</a
+              >
+              <a class="dropdown-item" href="{% url 'decistionTree' %}"
+                >Decision Tree</a
+              >
+              <a class="dropdown-item" href="{% url 'randomForest' %}">Random Forest</a>
+                        <a class="dropdown-item" href="{% url 'svm' %}">Support Vector Machine</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-color" href="{% url 'contact' %}">Contact Us</a>
+                </li>
+            </ul>
+            <!-- <div class="social-part">
+          <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+          <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+          <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+        </div> -->
+        </div>
+    </nav>
+    <div class="jumbotron jumbotron-fluid jumbotron-image">
+        <br><br><br><br><br><br><br><br><br><br>
+    </div>
+    <br />
+    <div class="container-fluid pl-4 pr-4">
+        <div class="btn-group special" role="group" aria-label="...">
+            <button type="button" class="btn btn-info btn-lg btn-arrow-right mr-3">
+          <a class="text-color" href="{% url 'financial' %}">Requirement</a>
+        </button>
+            <button type="button" class="btn btn-info btn-lg btn-arrow-right mr-3">
+          <a class="text-color" href="{% url 'condition' %}">Condition</a>
+        </button>
+            <button type="button" class="btn btn-info btn-lg btn-arrow-right mr-3">
+          <a class="text-color" href="{% url 'result' %}">Result</a>
+        </button>
+        </div>
+    </div>
+    <br />{% block page_content %} {% endblock %} <br /><br />
+    <footer class="py-3 bg-grey mt-5">
+        <p class="m-0 text-dark text-center">
+            Copyright &copy; Computer Science : Suan Sunandha Rajabhat University
+        </p>
+    </footer>
+</body>
+
+</html>

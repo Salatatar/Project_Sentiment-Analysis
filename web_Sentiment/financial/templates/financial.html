@@ -1,0 +1,264 @@
+{% extends "base2.html" %} {% block page_content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script>
+    $(document).ready(function() {
+        var sportslist = [];
+        $("#sports").select2({
+            data: sportslist,
+        });
+    });
+</script>
+{% if alert_flag %}
+<script>
+    alert("Save Requirement Successfully !");
+</script>
+{% endif %}
+<style>
+    .text-custom-en {
+        font-family: cursive;
+    }
+    
+    .text-custom-th {
+        font-family: "Mitr", sans-serif;
+    }
+    
+    .text-custom-size-th {
+        font-family: "Mitr", sans-serif;
+        font-size: 16px;
+    }
+    
+    .navbar-nav li:hover>ul.dropdown-menu {
+        display: block;
+    }
+    
+    .dropdown-submenu {
+        position: relative;
+    }
+    
+    .dropdown-submenu>.dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -6px;
+    }
+    /* rotate caret on hover */
+    
+    .dropdown-menu>li>a:hover:after {
+        text-decoration: underline;
+        transform: rotate(-90deg);
+    }
+    
+    .loader-wrapper {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #242f3f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .loader {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        border: 4px solid #Fff;
+        animation: loader 2s infinite ease;
+    }
+    
+    .loader-inner {
+        vertical-align: top;
+        display: inline-block;
+        width: 100%;
+        background-color: #fff;
+        animation: loader-inner 2s infinite ease-in;
+    }
+    
+    @keyframes loader {
+        0% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(180deg);
+        }
+        50% {
+            transform: rotate(180deg);
+        }
+        75% {
+            transform: rotate(360deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes loader-inner {
+        0% {
+            height: 0%;
+        }
+        25% {
+            height: 0%;
+        }
+        50% {
+            height: 100%;
+        }
+        75% {
+            height: 100%;
+        }
+        100% {
+            height: 0%;
+        }
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mt-5 text-center text-custom-size-th">
+            <h3 class="text-custom-th mb-5">รายละเอียด</h3>
+            <form action="{% url 'financial_info' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="inputText1" class="col-sm-3 col-form-label mt-3">รายได้ :</label>
+                    <div class="col-sm-7 mt-3">
+                        <input name="income" type="number" step="any" class="form-control" id="inputText1" placeholder="รายได้ (ต่อเดือน)" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputText2" class="col-sm-3 col-form-label mt-4">รายจ่าย :</label>
+                    <div class="col-sm-7 mt-4">
+                        <input name="fee" type="number" step="any" class="form-control" id="inputText2" placeholder="รายจ่าย (ต่อเดือน)" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputText3" class="col-sm-3 col-form-label mt-4">เงินออม :</label>
+                    <div class="col-sm-7 mt-4">
+                        <input name="savings" type="number" step="any" class="form-control" id="inputText3" placeholder="เงินออม" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputText4" class="col-sm-3 col-form-label mt-4">ภาระหนี้ :</label>
+                    <div class="col-sm-7 mt-4">
+                        <input name="debt" type="number" step="any" class="form-control" id="inputText4" placeholder="ภาระหนี้" required>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-1 mt-5 p-5 text-center">
+            <br /><br /><br /><br /><br />
+            <i class='fas fa-angle-double-right' style='font-size:48px;color:red'></i>
+        </div>
+        <div class="col-md-5 mt-5 text-center">
+            <h3 class="text-custom-th mb-5">กรอกผลิตภัณฑ์และราคา</h3>
+            <div class="mt-3 mr-5 ml-5" id="boxinput">
+                <div class="d-flex">
+                    <div class="p-2 ml-3 mt-3 text-custom-size-th">
+                        <b>เลือกผลิตภัณฑ์ :</b>
+                    </div>
+                    <div class="m-3">
+                        <select name="sports" id="sports" style="width:180px;" required>
+                                <option disabled selected>- - -&nbsp;&nbsp;&nbsp;Select&nbsp;&nbsp;&nbsp;- - -</option>
+                                <optgroup label="SPORTS"></optgroup>
+                                    <option value="running">Running</option>
+                                    <option value="football">Football</option>
+                                    <option value="futsal">Futsal</option>
+                                    <option value="fashion sport">Fashion sport</option>
+                                    <option value="basketball">Basketball</option>
+                                    <option value="exercise">Exercise</option>
+                                    <option value="tennis">Tennis</option>
+                                    <option value="swimming">Swimming</option>
+                                    <option value="golf">Golf</option>
+                                    <option value="cycling">Cycling</option>
+                                    <option value="outdoor & activity">Outdoor & Activity</option>
+                                    <option value="supplement food">Supplement Food</option>
+                                </optgroup>
+                                <optgroup label="MEN"></optgroup>
+                                    <option value="men footwear">Men Footwear</option>
+                                    <option value="men apprel">Men Apprel</option>
+                                    <option value="bags">Bags</option>
+                                    <option value="sneaker">Sneaker</option>
+                                    <option value="swimwear">Swimwear</option>
+                                    <option value="men accessories">Men Accessories</option>
+                                </optgroup>
+                                <optgroup label="WOMEN"></optgroup>
+                                    <option value="women footwear">Women Footwear</option>
+                                    <option value="women apparel">Women Apparel</option>
+                                    <option value="bags">Bags</option>
+                                    <option value="swimwear">Swimwear</option>
+                                    <option value="women accessories">Women Accessories</option>
+                                </optgroup>
+                                <optgroup label="KIDS"></optgroup>
+                                    <option value="kids footwear">Kids Footwear</option>
+                                    <option value="kids apparel">Kids Apparel</option>
+                                    <option value="bags">Bags</option>
+                                    <option value="swimwear">Swimwear</option>
+                                    <option value="kids accessories">Kids Accessories</option>
+                                </optgroup>
+                                <optgroup label="FOOTWEAR"></optgroup>
+                                    <option value="running shoes">Running Shoes</option>
+                                    <option value="casual shoes">Casual Shoes</option>
+                                    <option value="x-training shoes">X-Training Shoes</option>
+                                    <option value="football shoes">Football Shoes</option>
+                                    <option value="basketball shoes">Basketball Shoes</option>
+                                    <option value="tenis shoes">Tenis Shoes</option>
+                                    <option value="badminton shoes">Badminton Shoes</option>
+                                    <option value="golf shoes">Golf Shoes</option>
+                                    <option value="cycling shoes">Cycling Shoes</option>
+                                    <option value="trekking shoes">Trekking Shoes</option>
+                                </optgroup>
+                                <optgroup label="RUNNING"></optgroup>
+                                    <option value="running top">Running Top</option>
+                                    <option value="running short">Running Short</option>
+                                    <option value="accessories">Accessories</option>
+                                    <option value="technlogy">Technlogy</option>
+                                    <option value="nutrition">Nutrition</option>
+                                    <option value="equipment">Equipment</option>
+                                </optgroup>
+                                <optgroup label="FOOTBALL"></optgroup>
+                                    <option value="football top">Football Top</option>
+                                    <option value="football short">Football Short</option>
+                                    <option value="jackets">Jackets</option>
+                                    <option value="balls">Balls</option>
+                                </optgroup>
+                                <optgroup label="BRANDS"></optgroup>
+                                    <option value="nike">Nike</option>
+                                    <option value="adidas">Adidas</option>
+                                    <option value="crocs">Crocs</option>
+                                    <option value="new balance">New balance</option>
+                                    <option value="skechers">Skechers</option>
+                                    <option value="fila">Fila</option>
+                                    <option value="k-swiss">K-Swiss</option>
+                                    <option value="reebok">Reebok</option>
+                                    <option value="speedo">Speedo</option>
+                                </optgroup>
+                            </select>
+                    </div>
+                </div>
+                <hr class="ml-3" />
+                <div class="form-group row text-custom-size-th">
+                    <label for="inputPrice" class="col-sm-3 col-form-label mt-4">ราคา :</label>
+                    <div class="col-sm-7 mt-4">
+                        <input name="price" type="number" step="any" class="form-control" id="inputPrice" placeholder="ราคา" required>
+                    </div>
+                </div>
+                <br><br>
+                <div class="text-left text-center mt-3">
+                    <button class="btn btn-info" type="submit">Submit</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="loader-wrapper">
+    <span class="loader"><span class="loader-inner"></span></span>
+</div>
+<script>
+    $(window).on("load", function() {
+        $(".loader-wrapper").fadeOut("slow");
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends "base.html" %} {% block page_content %} {% load static %}
+<style>
+    .text-custom-en {
+        font-family: cursive;
+    }
+    
+    .text-custom-th {
+        font-family: "Mitr", sans-serif;
+    }
+    
+    .text-custom-size-th {
+        font-family: "Mitr", sans-serif;
+        font-size: 18px;
+    }
+    
+    .text-custom-size-th-detail {
+        font-family: "Mitr", sans-serif;
+        font-size: 14px;
+    }
+    
+    .text-custom-color {
+        color: crimson;
+    }
+    
+    .text-line {
+        line-height: 28px;
+    }
+    
+    #demoObject {
+        -webkit-box-shadow: 0px 20px 0px -10px #FFFFFF, 0px -20px 0px -10px #FFFFFF, 20px 0px 0px -10px #FFFFFF, -20px 0px 0px -10px #FFFFFF, 0px 0px 0px 10px #FF0000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+        box-shadow: 0px 20px 0px -10px #FFFFFF, 0px -20px 0px -10px #FFFFFF, 20px 0px 0px -10px #FFFFFF, -20px 0px 0px -10px #FFFFFF, 0px 0px 0px 10px #FF0000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+        background: #FFFFFF;
+    }
+    
+    body#tinymce {
+        background: #FFFFFF
+    }
+    
+    .loader-wrapper {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #242f3f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .loader {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        border: 4px solid #Fff;
+        animation: loader 2s infinite ease;
+    }
+    
+    .loader-inner {
+        vertical-align: top;
+        display: inline-block;
+        width: 100%;
+        background-color: #fff;
+        animation: loader-inner 2s infinite ease-in;
+    }
+    
+    @keyframes loader {
+        0% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(180deg);
+        }
+        50% {
+            transform: rotate(180deg);
+        }
+        75% {
+            transform: rotate(360deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes loader-inner {
+        0% {
+            height: 0%;
+        }
+        25% {
+            height: 0%;
+        }
+        50% {
+            height: 100%;
+        }
+        75% {
+            height: 100%;
+        }
+        100% {
+            height: 0%;
+        }
+    }
+</style>
+<div class="container text-custom-en text-custom-th">
+    <h1 class="text-center">Decision Tree</h1>
+    <div class="row">
+        <div class="col-1 mt-2"></div>
+        <div class="col-10 mt-2">
+            <h4 class="text-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;การเรียนรู้แบบต้นไม้ตัดสินใจ เป็นหนึ่งในวิธีการเรียนรู้ซึ่งใช้ในสถิติ, การเรียนรู้ของเครื่อง และการทำเหมืองข้อมูล โดยพิจารณาการสังเกตการแบ่งแยกข้อมูลโดยพิจารณาข้อมูล ในการเรียนรู้ของเครื่อง (machine learning)
+                ต้นไม้ตัดสินใจ เป็นโมเดลทางคณิตศาสตร์ที่ใช้ทำนายประเภทของวัตถุโดยพิจารณาจากลักษณะของวัตถุ บัพภายใน (inner node) ของต้นไม้จะแสดงตัวแปร ส่วนกิ่งจะแสดงค่าที่เป็นไปได้ของตัวแปร ส่วนบัพใบ (leaf node) จะแสดงประเภทของวัตถุ ต้นไม้ตัดสินใจที่บัพใบแสดงถึงข้อมูลที่เป็นข้อมูลไม่ต่อเนื่อง
+                (discrete values) จะเรียกว่าต้นไม้ตัดสินใจแบบจำแนก (classification trees) และต้นไม้ตัดสินใจที่บัพใบเป็นข้อมูลต่อเนื่อง (continuous values) จะเรียกว่าต้นไม้ตัดสินใจแบบถดถอย (regression trees) ต้นไม้การตัดสินใจในการบริหารธุรกิจ เป็นแผนผังต้นไม้ช่วยในการตัดสินใจ
+                โดยแสดงถึงมูลค่าของทรัพยากรที่จะใช้ ความเสี่ยงในการลงทุนและผลลัพธ์ที่มีโอกาสเกิดขึ้น ต้นไม้ตัดสินใจสร้างขึ้นเพื่อช่วยการตัดสินใจเพื่อใช้ในการสร้างแผนงาน นิยมใช้มากในการบริหารความเสี่ยง (risk management) ต้นไม้ตัดสินใจเป็นส่วนหนึ่งของทฤษฎีการตัดสินใจ
+                (decision theory) และ ทฤษฎีกราฟ ต้นไม้ตัดสินใจเป็นวิธีการพื้นฐานอย่างหนึ่งสำหรับการทำเหมืองข้อมูล</h4>
+        </div>
+        <div class="col-1 mt-2"></div>
+    </div>
+    <div class=" row ">
+        <div class="col-12 mt-3 text-center">
+            <img src="{% static 'images/report.PNG' %}" height="300px" />
+        </div>
+    </div>
+    <h3 class="text-center">Accuracy and Confusion Matrix</h3>
+    <div class="row">
+        <div class="col-8 mt-3">
+            <img src="{% static 'images/Score_Decision_Tree.PNG' %}" height="250px" />
+        </div>
+        <div class="col-4 mt-3">
+            <img src="{% static 'images/dt_matrix.PNG' %}" height="250px" />
+        </div>
+    </div>
+</div>
+<div class="loader-wrapper">
+    <span class="loader"><span class="loader-inner"></span></span>
+</div>
+<script>
+    $(window).on("load", function() {
+        $(".loader-wrapper").fadeOut("slow");
+    });
+</script>
+{% endblock %}

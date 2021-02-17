@@ -1,0 +1,226 @@
+{% extends "base2.html" %} {% block page_content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<style>
+    .text-custom-en {
+        font-family: cursive;
+    }
+    
+    .text-custom-th {
+        font-family: "Mitr", sans-serif;
+    }
+    
+    .text-custom-size-th {
+        font-family: "Mitr", sans-serif;
+        font-size: 18px;
+    }
+    
+    .navbar-nav li:hover>ul.dropdown-menu {
+        display: block;
+    }
+    
+    .dropdown-submenu {
+        position: relative;
+    }
+    
+    .dropdown-submenu>.dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -6px;
+    }
+    /* rotate caret on hover */
+    
+    .dropdown-menu>li>a:hover:after {
+        text-decoration: underline;
+        transform: rotate(-90deg);
+    }
+    
+    .loader-wrapper {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #242f3f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .loader {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        border: 4px solid #Fff;
+        animation: loader 2s infinite ease;
+    }
+    
+    .loader-inner {
+        vertical-align: top;
+        display: inline-block;
+        width: 100%;
+        background-color: #fff;
+        animation: loader-inner 2s infinite ease-in;
+    }
+    
+    @keyframes loader {
+        0% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(180deg);
+        }
+        50% {
+            transform: rotate(180deg);
+        }
+        75% {
+            transform: rotate(360deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes loader-inner {
+        0% {
+            height: 0%;
+        }
+        25% {
+            height: 0%;
+        }
+        50% {
+            height: 100%;
+        }
+        75% {
+            height: 100%;
+        }
+        100% {
+            height: 0%;
+        }
+    }
+</style>
+<div class="container">
+    <form action="{% url 'condition' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mt-5 text-custom-size-th">
+                <fieldset class="form-group">
+                    <legend><i class="fa fa-hand-o-right" style="font-size:18px"></i> ความจำเป็นในการบริโภคสินค้า</legend>
+                    <div class="form-check mt-1">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="G1_optionsRadios" id="optionsRadios1" value="G1_option1">
+                    <b class="ml-5">น้อย</b> 
+                  </label>
+                    </div>
+                    <div class="form-check mt-1">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="G1_optionsRadios" id="optionsRadios2" value="G1_option2"><b class="ml-5">ปานกลาง</b> 
+                  </label>
+                    </div>
+                    <div class="form-check mt-1">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="G1_optionsRadios" id="optionsRadios3" value="G1_option3"><b class="ml-5">มาก</b> 
+                  </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mt-5 text-custom-size-th">
+                <fieldset class="form-group">
+                    <legend><i class="fa fa-hand-o-right" style="font-size:18px"></i> ความรู้สึกของการอยากได้</legend>
+                    <div class="form-check mt-1">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="G2_optionsRadios" id="optionsRadios1" value="G2_option1">
+                    <b class="ml-5">น้อย</b> 
+                  </label>
+                    </div>
+                    <div class="form-check mt-1">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="G2_optionsRadios" id="optionsRadios2" value="G2_option2"><b class="ml-5">ปานกลาง</b> 
+                  </label>
+                    </div>
+                    <div class="form-check mt-1">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="G2_optionsRadios" id="optionsRadios3" value="G2_option3"><b class="ml-5">มาก</b> 
+                  </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mt-5 text-custom-size-th">
+                <fieldset class="form-group">
+                    <legend><i class="fa fa-hand-o-right" style="font-size:18px"></i> ความสำคัญในการซื้อสินค้า</legend>
+                    <div class="form-check mt-1">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="G3_optionsRadios" id="optionsRadios1" value="G3_option1">
+                    <b class="ml-5">น้อย</b> 
+                  </label>
+                    </div>
+                    <div class="form-check mt-1">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="G3_optionsRadios" id="optionsRadios2" value="G3_option2"><b class="ml-5">ปานกลาง</b> 
+                  </label>
+                    </div>
+                    <div class="form-check mt-1">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="G3_optionsRadios" id="optionsRadios3" value="G3_option3"><b class="ml-5">มาก</b> 
+                  </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mt-5 text-custom-size-th">
+                <fieldset class="form-group">
+                    <legend><i class="fa fa-hand-o-right" style="font-size:18px"></i> คุณภาพของสินค้าที่จะซื้อ</legend>
+                    <div class="form-check mt-1">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="G4_optionsRadios" id="optionsRadios1" value="G4_option1">
+                    <b class="ml-5">น้อย</b> 
+                  </label>
+                    </div>
+                    <div class="form-check mt-1">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="G4_optionsRadios" id="optionsRadios2" value="G4_option2"><b class="ml-5">ปานกลาง</b> 
+                  </label>
+                    </div>
+                    <div class="form-check mt-1">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="G4_optionsRadios" id="optionsRadios3" value="G4_option3"><b class="ml-5">มาก</b> 
+                  </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mt-5 text-custom-size-th">
+                <button class="btn btn-info m-5" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="loader-wrapper">
+    <span class="loader"><span class="loader-inner"></span></span>
+</div>
+<script>
+    $(window).on("load", function() {
+        $(".loader-wrapper").fadeOut("slow");
+    });
+</script>
+{% endblock %}
